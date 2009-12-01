@@ -1,0 +1,43 @@
+= SitemapMaker
+== Usage
+
+  # Our Work
+  our_work = SitemapSection.new("Our Work", our_work_path())
+  our_work.add_entry("Project Approaches", project_approaches_path())
+  
+  # Projects
+  projects =  SitemapSection.new("Projects", our_work_path())
+  @projects.each { |project| projects.add_entry(project.project_name, project_slug_path(:project_slug=>project.slug, :sector_slug=>project.default_sector_slug )) }
+
+  # Sectors
+  sector_section = SitemapSection.new("Sectors", visitor_sectors_path())
+  sector_section.add_entry('Market Directory', market_directory_path())
+  @sectors.each {|sector| sector_section.add_entry(sector.title, sector_directory_path(:slug=>sector.slug))}
+
+  # Publications
+  publications = SitemapSection.new("Publications", news_listing_path())
+  publications.add_entry("Publications Archive", news_archive_path())
+
+Use in your views, making it 2-columns if need-be:
+
+  <% splitter = SitemapSplitter.new(our_work, projects, sector_section, publications, about, careers) %>
+  <% first_column, second_column = splitter.split_in_two  %>
+
+  <div id="middle" class="sitemap">
+      <h2>Sitemap</h2>
+      <div class="sitemap">
+        <% first_column.each do |section| %>
+          <%= section.render %>
+        <% end %>
+      </div>
+      <div class="sitemap">
+        <% second_column.each do |section| %>
+          <%= section.render %>
+        <% end %>
+      </div>
+  </div>
+
+== Future additions:
+XML rendering, N-column splitting
+
+Copyright (c) 2009 ienders & robtierney, released under the MIT license
