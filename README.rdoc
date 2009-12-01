@@ -1,6 +1,8 @@
 = SitemapMaker
-== Usage
 
+== Usage
+  # Create your SitemapSections:
+  
   # Our Work
   our_work = SitemapSection.new("Our Work", our_work_path())
   our_work.add_entry("Project Approaches", project_approaches_path())
